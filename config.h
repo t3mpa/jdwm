@@ -19,7 +19,7 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"sh /home/jd/.local/bin/fastkeys", NULL,
+	"xset", "r", "rate", "300", "50", NULL, /* faster text scrolling bitch! */
 	NULL /* terminate */
 };
 
