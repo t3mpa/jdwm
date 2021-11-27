@@ -32,7 +32,7 @@ static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Anonymous Pro:style=Regular:size=13" };
+static const char *fonts[]          = { "Anonymous Pro:style=Regular:size=13", "JoyPixels:style=Regular:size=13" };
 static const char dmenufont[]       = "Anonymous Pro:style=Regular:size=13";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#5d8254";
@@ -46,7 +46,6 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"xset", "r", "rate", "300", "50", NULL, /* faster text scrolling bitch! */
 	NULL /* terminate */
 };
 
@@ -106,17 +105,18 @@ static const char *passmenu[]  = { "passmenu", NULL };
 static const char *audacious[] = { "audacious", NULL };
 static const char *discord[]   = { "/home/jd/Programs/Discord/Discord", NULL };
 static const char *steam[]     = { "steam", NULL};
+static const char *ranger[]    = { "kitty", "ranger", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,			            XK_v,	   spawn,	       {.v = nvimcmd } },
-	{ 0,				            0x1008ff12, spawn,         {.v = volmute } }, /* laptop keyboard */ 
+	{ MODKEY,		                    XK_v,	     spawn,	         {.v = nvimcmd } },
+	{ 0,		                        0x1008ff12, spawn,         {.v = volmute } }, /* laptop keyboard */ 
 	{ 0,                            0x1008ff15, spawn,         {.v = volmute } }, /* External Keyboard */ 
-	{ 0,				            0x1008ff13, spawn,	       {.v = volup } }, /* laptop keyboard */
+	{ 0,				                    0x1008ff13, spawn,	       {.v = volup } }, /* laptop keyboard */
 	{ 0,                            0x1008ff14, spawn,         {.v = volup } }, /* External Keyboard */ 
-	{ 0,				            0x1008ff11, spawn,	       {.v = voldown } }, /* laptop keyboard */ 
+	{ 0,				                    0x1008ff11, spawn,	       {.v = voldown } }, /* laptop keyboard */ 
 	{ 0,                            0x1008ff16, spawn,         {.v = voldown } }, /* External Keyboard */ 
 	{ 0,                            0x1008ff1d, spawn,         {.v = calc } },
 	{ MODKEY|ShiftMask,             XK_f,       spawn,         {.v = furryfox } },
@@ -126,6 +126,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,       spawn,         {.v = audacious } },
 	{ MODKEY|ShiftMask,             XK_d,       spawn,         {.v = discord } },
 	{ MODKEY|ShiftMask,             XK_s,       spawn,         {.v = steam } },
+  { MODKEY|ControlMask,           XK_r,       spawn,         {.v = ranger} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -143,7 +144,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY|ShiftMask,             XK_z,      togglefullscr,  {0} },
+	{ MODKEY,                       XK_z,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
