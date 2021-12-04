@@ -1,4 +1,5 @@
 *.orig
 *.rej
-pathces/
 dwm
+README
+dwm.png
