@@ -31,6 +31,7 @@
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx     = 12;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Anonymous Pro:style=Regular:size=13", "JoyPixels:style=Regular:size=13", "Noto Color Emoji:style=Regular:size=13" };
@@ -48,6 +49,7 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
+ "xset", "r", "rate", "300", "50", NULL, /* Fast Scrolling in TUI */
 	NULL /* terminate */
 };
 
@@ -59,9 +61,11 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
+	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+	{ "kitty",   NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
@@ -109,6 +113,7 @@ static const char *discord[]     = { "/home/jd/Programs/Discord/Discord", NULL }
 static const char *steam[]       = { "steam", NULL};
 static const char *ranger[]      = { "kitty", "ranger", "/home/jd", NULL };
 static const char *moc[]         = { "kitty", "mocp", NULL };
+static const char *rss[]         = { "kitty", "newsboat", "-r", "-u", "/home/jd/Media/RSS", "-c", "/home/jd/.cache/newsboat.db", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -131,6 +136,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_s,       spawn,          {.v = steam } },
   { MODKEY,                       XK_r,       spawn,          {.v = ranger} },
   { MODKEY|ShiftMask,             XK_m,       spawn,          {.v = moc} },
+  { MODKEY,                       XK_n,       spawn,          {.v = rss} },
 	{ MODKEY,                       XK_b,       togglebar,      {0} },
 	{ MODKEY,                       XK_j,       focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,       focusstack,     {.i = -1 } },
