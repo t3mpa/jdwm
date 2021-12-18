@@ -1,5 +1,6 @@
 *.orig
 *.rej
+*.bak
 dwm
 README
 dwm.png
