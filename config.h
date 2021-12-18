@@ -102,7 +102,6 @@ static const char *rss[]         = { "kitty", "newsboat", "-r", "-u", "/home/jd/
 static const char *htop[]        = { "kitty", "htop", NULL };
 static const char *bashtop[]     = { "kitty", "bashtop", NULL };
 
-#include "shiftview.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,       spawn,          {.v = dmenucmd } },
@@ -127,8 +126,8 @@ static Key keys[] = {
   { MODKEY|ShiftMask,             XK_h,       spawn,          {.v = htop} },
   { MODKEY|ControlMask,           XK_h,       spawn,          {.v = bashtop} },
 	{ MODKEY,                       XK_b,       togglebar,      {0} },
-	{ MODKEY,                       XK_k,       focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_j,       focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_j,       focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_k,       focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,       incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,       incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,       setmfact,       {.f = -0.05} },
@@ -136,18 +135,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return,  zoom,           {0} },
 	{ MODKEY,                       XK_Tab,     view,           {0} },
 	{ MODKEY,                       XK_q,       killclient,     {0} },
-  { MODKEY,                       XK_g,       shiftview,      {.i = -1 } },
-  { MODKEY|ShiftMask,             XK_g,       shifttag,       {.i = -1 } },
-  { MODKEY,                     XK_semicolon, shiftview,      {.i = 1 } },
-  { MODKEY|ShiftMask,           XK_semicolon, shifttag,       {.i = 1 } },
 	{ MODKEY,                       XK_t,       setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_i,       setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_f,       setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,       setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_y,       setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_u,       setlayout,      {.v = &layouts[4]} },
+	{ MODKEY,                       XK_c,       setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,   setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,   togglefloating, {0} },
-	{ MODKEY,                       XK_f,       togglefullscr,  {0} },
+	{ MODKEY,                       XK_z,       togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,       view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,       tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,   focusmon,       {.i = -1 } },
