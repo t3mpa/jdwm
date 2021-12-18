@@ -93,7 +93,6 @@ static const char *brightup[]    = { "brightnessctl", "-d", "amdgpu_bl0", "set",
 static const char *brightdown[]  = { "brightnessctl", "-d", "amdgpu_bl0", "set", "5%-", NULL};
 static const char *furryfox[]    = { "firefox", NULL };
 static const char *retroarch[]   = { "retroarch", NULL };
-static const char *blueman[]     = { "blueman-manager", NULL };
 static const char *passmenu[]    = { "passmenu", NULL };
 static const char *discord[]     = { "/home/jd/Programs/Discord/Discord", NULL };
 static const char *steam[]       = { "steam", NULL};
