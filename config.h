@@ -20,26 +20,30 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Anonymous Pro:style=Regular:size=13", "Noto Color Emoji:style=Regular" };
+static const char *fonts[]          = { "Anonymous Pro:style=Regular:size=13", "Joypixels:style=Regular:size=13" };
 static const char dmenufont[]       = "Anonymous Pro:style=Regular:size=13";
-static const char normbgcolor[]     = "#222222";
+#include "/home/jd/.cache/wal/colors-wal-dwm.h"
+/* static const char normbgcolor[]     = "#222222";
 static const char normbordercolor[] = "#444444";
 static const char normfgcolor[]     = "#bbbbbb";
 static const char selfgcolor[]      = "#eeeeee";
 static const char selbgcolor[]      = "#006633";
 static const char selbordercolor[]  = "#66cdaa";
+static const char urgborder[]   = "#ff0000";
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
+//	                    fg         bg         border   
 	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
 	[SchemeSel]  = { selfgcolor, selbgcolor,  selbordercolor },
-};
+	[SchemeUrg]  = { selfgcolor, selbordercolor,  urgborder  },
+}; */
 
 static const char *const autostart[] = {
+  "ncpamixer", NULL,
 	NULL /* terminate */
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "X" };
+static const char *tags[] = { "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -48,9 +52,10 @@ static const Rule rules[] = {
 	 */
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
-	{ "kitty",   NULL,     NULL,           0,         0,          1,           0,        -1 },
-  { "Steam",   NULL,     NULL,           0,         0,          0,           0,        -1 },
+	{ "qutebrowser", NULL, NULL,           1 << 2,    0,          0,          -1,        -1 },
+	{ "kitty",   NULL,     NULL,           1 << 1,    0,          1,           0,        -1 },
+  { NULL,      NULL,     "ranger",       1 << 4,    0,          1,           0,        -1 },
+  { "Steam",   NULL,     NULL,           1 << 3,    0,          0,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
@@ -83,30 +88,31 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[]  = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[]  = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
 static const char *termcmd[]     = { "kitty", NULL };
-static const char *nvimcmd[]     = { "kitty", "nvim", NULL };
+static const char *editorcmd[]   = { "kitty", "nvim", NULL };
 static const char *volmute[]     = { "amixer", "set", "Master", "toggle", NULL };
 static const char *volup[]       = { "amixer", "set", "Master", "5%+", NULL };
 static const char *voldown[]     = { "amixer", "set", "Master", "5%-", NULL };
 static const char *brightup[]    = { "brightnessctl", "-d", "amdgpu_bl0", "set", "5%+", NULL};
 static const char *brightdown[]  = { "brightnessctl", "-d", "amdgpu_bl0", "set", "5%-", NULL};
-static const char *furryfox[]    = { "firefox", NULL };
+static const char *browser[]     = { "qutebrowser", NULL };
 static const char *retroarch[]   = { "retroarch", NULL };
 static const char *passmenu[]    = { "passmenu", NULL };
-static const char *discord[]     = { "/home/jd/Programs/Discord/Discord", NULL };
-static const char *steam[]       = { "steam", NULL};
+static const char *discord[]     = { "discord", NULL };
+static const char *steam[]       = { "steam", "-nobrowser", NULL};
 static const char *ranger[]      = { "kitty", "ranger", "/home/jd", NULL };
 static const char *moc[]         = { "kitty", "mocp", NULL };
 static const char *rss[]         = { "kitty", "newsboat", "-r", "-u", "/home/jd/Media/RSS", "-c", "/home/jd/.cache/newsboat.db", NULL };
 static const char *htop[]        = { "kitty", "htop", NULL };
 static const char *bashtop[]     = { "kitty", "bashtop", NULL };
+static const char *youtube[]     = { "ytfzf", "-DN", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,       spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,  spawn,          {.v = termcmd } },
-	{ MODKEY,		                    XK_v,	      spawn,	        {.v = nvimcmd } },
+	{ MODKEY,		                    XK_v,	      spawn,	        {.v = editorcmd } },
 	{ 0,		                        0x1008ff12, spawn,          {.v = volmute } }, /* laptop keyboard */ 
 	{ 0,                            0x1008ff15, spawn,          {.v = volmute } }, /* External Keyboard */ 
 	{ 0,				                    0x1008ff13, spawn,	        {.v = volup } }, /* laptop keyboard */
@@ -115,7 +121,7 @@ static Key keys[] = {
 	{ 0,                            0x1008ff16, spawn,          {.v = voldown } }, /* External Keyboard */ 
   { 0,                            0x1008ff02, spawn,          {.v = brightup } }, /* laptop Keyboard */
   { 0,                            0x1008ff03, spawn,          {.v = brightdown } }, /* laptop Keyboard */
-	{ MODKEY,                       XK_w,       spawn,          {.v = furryfox } },
+	{ MODKEY,                       XK_w,       spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_l,       spawn,          {.v = retroarch } },
 	{ MODKEY|ShiftMask,             XK_p,       spawn,          {.v = passmenu } },
 	{ MODKEY|ShiftMask,             XK_d,       spawn,          {.v = discord } },
@@ -125,6 +131,7 @@ static Key keys[] = {
   { MODKEY,                       XK_n,       spawn,          {.v = rss} },
   { MODKEY|ShiftMask,             XK_h,       spawn,          {.v = htop} },
   { MODKEY|ControlMask,           XK_h,       spawn,          {.v = bashtop} },
+  { MODKEY|ShiftMask,             XK_y,       spawn,          {.v = youtube} },
 	{ MODKEY,                       XK_b,       togglebar,      {0} },
 	{ MODKEY,                       XK_j,       focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,       focusstack,     {.i = -1 } },
