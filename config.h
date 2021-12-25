@@ -54,8 +54,8 @@ static const Rule rules[] = {
 	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
 	{ "qutebrowser", NULL, NULL,           1 << 2,    0,          0,          -1,        -1 },
 	{ "kitty",   NULL,     NULL,           1 << 1,    0,          1,           0,        -1 },
-  { NULL,      NULL,     "ranger",       1 << 4,    0,          1,           0,        -1 },
-  { "Steam",   NULL,     NULL,           1 << 3,    0,          0,           0,        -1 },
+        { NULL,      NULL,     "ranger",       1 << 4,    0,          1,           0,        -1 },
+        { "Steam",   NULL,     NULL,           1 << 3,    0,          0,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
@@ -112,26 +112,26 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,       spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,  spawn,          {.v = termcmd } },
-	{ MODKEY,		                    XK_v,	      spawn,	        {.v = editorcmd } },
-	{ 0,		                        0x1008ff12, spawn,          {.v = volmute } }, /* laptop keyboard */ 
+	{ MODKEY,		        XK_v,	    spawn,	    {.v = editorcmd } },
+	{ 0,		                0x1008ff12, spawn,          {.v = volmute } }, /* laptop keyboard */ 
 	{ 0,                            0x1008ff15, spawn,          {.v = volmute } }, /* External Keyboard */ 
-	{ 0,				                    0x1008ff13, spawn,	        {.v = volup } }, /* laptop keyboard */
+	{ 0,				0x1008ff13, spawn,	    {.v = volup } }, /* laptop keyboard */
 	{ 0,                            0x1008ff14, spawn,          {.v = volup } }, /* External Keyboard */ 
-	{ 0,				                    0x1008ff11, spawn,	        {.v = voldown } }, /* laptop keyboard */ 
+	{ 0,			        0x1008ff11, spawn,	    {.v = voldown } }, /* laptop keyboard */ 
 	{ 0,                            0x1008ff16, spawn,          {.v = voldown } }, /* External Keyboard */ 
-  { 0,                            0x1008ff02, spawn,          {.v = brightup } }, /* laptop Keyboard */
-  { 0,                            0x1008ff03, spawn,          {.v = brightdown } }, /* laptop Keyboard */
+        { 0,                            0x1008ff02, spawn,          {.v = brightup } }, /* laptop Keyboard */
+        { 0,                            0x1008ff03, spawn,          {.v = brightdown } }, /* laptop Keyboard */
 	{ MODKEY,                       XK_w,       spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_l,       spawn,          {.v = retroarch } },
 	{ MODKEY|ShiftMask,             XK_p,       spawn,          {.v = passmenu } },
 	{ MODKEY|ShiftMask,             XK_d,       spawn,          {.v = discord } },
 	{ MODKEY|ShiftMask,             XK_s,       spawn,          {.v = steam } },
-  { MODKEY,                       XK_r,       spawn,          {.v = ranger} },
-  { MODKEY|ShiftMask,             XK_m,       spawn,          {.v = moc} },
-  { MODKEY,                       XK_n,       spawn,          {.v = rss} },
-  { MODKEY|ShiftMask,             XK_h,       spawn,          {.v = htop} },
-  { MODKEY|ControlMask,           XK_h,       spawn,          {.v = bashtop} },
-  { MODKEY|ShiftMask,             XK_y,       spawn,          {.v = youtube} },
+        { MODKEY,                       XK_r,       spawn,          {.v = ranger} },
+        { MODKEY|ShiftMask,             XK_m,       spawn,          {.v = moc} },
+        { MODKEY,                       XK_n,       spawn,          {.v = rss} },
+        { MODKEY|ShiftMask,             XK_h,       spawn,          {.v = htop} },
+        { MODKEY|ControlMask,           XK_h,       spawn,          {.v = bashtop} },
+        { MODKEY|ShiftMask,             XK_y,       spawn,          {.v = youtube} },
 	{ MODKEY,                       XK_b,       togglebar,      {0} },
 	{ MODKEY,                       XK_j,       focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,       focusstack,     {.i = -1 } },
@@ -156,12 +156,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period,  focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,   tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,  tagmon,         {.i = +1 } },
-  { MODKEY,                       XK_minus,  setgaps,         {.i = -1 } },
-  { MODKEY,                       XK_equal,  setgaps,         {.i = +1 } },
-  { MODKEY|ShiftMask,             XK_equal,  setgaps,         {.i = 0  } },
+        { MODKEY,                       XK_minus,  setgaps,         {.i = -1 } },
+        { MODKEY,                       XK_equal,  setgaps,         {.i = +1 } },
+        { MODKEY|ShiftMask,             XK_equal,  setgaps,         {.i = 0  } },
 	{ MODKEY|ShiftMask,             XK_q,       quit,           {0} },
-  TAGKEYS(                        XK_1,                      0)
-  TAGKEYS(                        XK_2,                      1)
+        TAGKEYS(                        XK_1,                      0)
+        TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
 	TAGKEYS(                        XK_4,                      3)
 	TAGKEYS(                        XK_5,                      4)
