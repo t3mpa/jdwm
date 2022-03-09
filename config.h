@@ -22,6 +22,11 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Anonymous Pro:style=Regular:size=13", "Joypixels:style=Regular:size=13" };
 static const char dmenufont[]       = "Anonymous Pro:style=Regular:size=13";
+static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
+static const unsigned int systrayspacing = 2;   /* systray spacing */
+static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray        = 1;     /* 0 means no systray */
 #include "/home/jd/.cache/wal/colors-wal-dwm.h"
 /* static const char normbgcolor[]     = "#222222";
 static const char normbordercolor[] = "#444444";
@@ -43,7 +48,7 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "" };
+static const char *tags[] = { "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -52,7 +57,7 @@ static const Rule rules[] = {
 	 */
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "qutebrowser", NULL, NULL,           1 << 2,    0,          0,          -1,        -1 },
+	{ "Chromium", "chromium",    NULL,     1 << 2,    0,          0,          -1,        -1 },
 	{ "kitty",   NULL,     NULL,           1 << 1,    0,          1,           0,        -1 },
         { NULL,      NULL,     "ranger",       1 << 4,    0,          1,           0,        -1 },
         { "Steam",   NULL,     NULL,           1 << 3,    0,          0,           0,        -1 },
@@ -96,7 +101,7 @@ static const char *volup[]       = { "amixer", "set", "Master", "5%+", NULL };
 static const char *voldown[]     = { "amixer", "set", "Master", "5%-", NULL };
 static const char *brightup[]    = { "brightnessctl", "-d", "amdgpu_bl0", "set", "5%+", NULL};
 static const char *brightdown[]  = { "brightnessctl", "-d", "amdgpu_bl0", "set", "5%-", NULL};
-static const char *browser[]     = { "qutebrowser", NULL };
+static const char *browser[]     = { "chromium", NULL };
 static const char *retroarch[]   = { "retroarch", NULL };
 static const char *passmenu[]    = { "passmenu", NULL };
 static const char *discord[]     = { "discord", NULL };
