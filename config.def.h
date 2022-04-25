@@ -47,7 +47,8 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "" };
+static const char *tags[] = { "Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "Ⅵ", "Ⅶ", "Ⅷ" };
+// static const char *tags[] = { "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -56,10 +57,11 @@ static const Rule rules[] = {
 	 */
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "Chromium", "chromium",    NULL,     1 << 2,    0,          0,          -1,        -1 },
-	{ "kitty",   NULL,     NULL,           1 << 1,    0,          1,           0,        -1 }
-  { NULL,      NULL,     "ranger",       1 << 4,    0,          1,           0,        -1 },
-  { "Steam",   NULL,     NULL,           1 << 3,    0,          0,           0,        -1 },
+	{ "Chromium", "chromium",    NULL,     1 << 1,    0,          0,          -1,        -1 },
+//	{ "Brave-browser", "brave-browser",    NULL,     1 << 1,    0,          0,          -1,        -1 },
+	{ "Navigator", "firefox",    NULL,     1 << 1,    0,          0,          -1,        -1 },
+//	{ "kitty",   NULL,     NULL,           1,    0,          1,           0,        -1 },
+	{ "Steam",   NULL,     NULL,           1 << 4,    0,          0,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
@@ -94,48 +96,52 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]  = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
 static const char *termcmd[]     = { "kitty", NULL };
-static const char *editorcmd[]   = { "kitty", "nvim", NULL };
+static const char *nvim[]   = { "kitty", "nvim", NULL }; // VIM
+static const char *emacs[]   = { "emacsclient", "-c", "-a", "'emacs'", NULL }; // EMACS
 static const char *volmute[]     = { "amixer", "set", "Master", "toggle", NULL };
 static const char *volup[]       = { "amixer", "set", "Master", "5%+", NULL };
 static const char *voldown[]     = { "amixer", "set", "Master", "5%-", NULL };
 static const char *brightup[]    = { "brightnessctl", "-d", "amdgpu_bl0", "set", "5%+", NULL};
 static const char *brightdown[]  = { "brightnessctl", "-d", "amdgpu_bl0", "set", "5%-", NULL};
-static const char *browser[]     = { "chromium", NULL };
+static const char *browser[]     = { "firefox", NULL };
 static const char *retroarch[]   = { "retroarch", NULL };
 static const char *passmenu[]    = { "passmenu", NULL };
 static const char *discord[]     = { "discord", NULL };
 static const char *steam[]       = { "steam", "-nobrowser", NULL};
 static const char *ranger[]      = { "kitty", "ranger", "/home/jd", NULL };
-static const char *cmus[]         = { "kitty", "cmus", NULL };
+static const char *ncmpcpp[]     = { "kitty", "ncmpcpp-ueberzug", NULL };
 static const char *rss[]         = { "kitty", "newsboat", "-r", "-u", "/home/jd/Media/RSS", "-c", "/home/jd/.cache/newsboat.db", NULL };
 static const char *htop[]        = { "kitty", "htop", NULL };
 static const char *bashtop[]     = { "kitty", "bashtop", NULL };
 static const char *youtube[]     = { "ytfzf", "-DN", NULL };
+static const char *virtmanager[] = { "virt-manager", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,       spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,  spawn,          {.v = termcmd } },
-	{ MODKEY,		        XK_v,	    spawn,	    {.v = editorcmd } },
+	{ MODKEY,		        XK_v,	    spawn,	    {.v = nvim }, }, // VIM
+	{ MODKEY,		        XK_e,	    spawn,	    {.v = emacs } }, // EMACS
+	{ MODKEY|ShiftMask,             XK_v,       spawn,          {.v = virtmanager} },
 	{ 0,		                0x1008ff12, spawn,          {.v = volmute } }, /* laptop keyboard */ 
 	{ 0,                            0x1008ff15, spawn,          {.v = volmute } }, /* External Keyboard */ 
-	{ 0,				0x1008ff13, spawn,	    {.v = volup } }, /* laptop keyboard */
+	{ 0,		                0x1008ff13, spawn,	    {.v = volup } }, /* laptop keyboard */
 	{ 0,                            0x1008ff14, spawn,          {.v = volup } }, /* External Keyboard */ 
-	{ 0,			        0x1008ff11, spawn,	    {.v = voldown } }, /* laptop keyboard */ 
+	{ 0,		                0x1008ff11, spawn,	    {.v = voldown } }, /* laptop keyboard */ 
 	{ 0,                            0x1008ff16, spawn,          {.v = voldown } }, /* External Keyboard */ 
-  { 0,                            0x1008ff02, spawn,          {.v = brightup } }, /* laptop Keyboard */
-  { 0,                            0x1008ff03, spawn,          {.v = brightdown } }, /* laptop Keyboard */
+	{ 0,                            0x1008ff02, spawn,          {.v = brightup } }, /* laptop Keyboard */
+	{ 0,                            0x1008ff03, spawn,          {.v = brightdown } }, /* laptop Keyboard */
 	{ MODKEY,                       XK_w,       spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_l,       spawn,          {.v = retroarch } },
 	{ MODKEY|ShiftMask,             XK_p,       spawn,          {.v = passmenu } },
 	{ MODKEY|ShiftMask,             XK_d,       spawn,          {.v = discord } },
 	{ MODKEY|ShiftMask,             XK_s,       spawn,          {.v = steam } },
-  { MODKEY,                       XK_r,       spawn,          {.v = ranger} },
-  { MODKEY|ShiftMask,             XK_m,       spawn,          {.v = cmus} },
-  { MODKEY,                       XK_n,       spawn,          {.v = rss} },
-  { MODKEY|ShiftMask,             XK_h,       spawn,          {.v = htop} },
-  { MODKEY|ControlMask,           XK_h,       spawn,          {.v = bashtop} },
-  { MODKEY|ShiftMask,             XK_y,       spawn,          {.v = youtube} },
+	{ MODKEY,                       XK_r,       spawn,          {.v = ranger} },
+	{ MODKEY|ShiftMask,             XK_m,       spawn,          {.v = ncmpcpp} },
+	{ MODKEY,                       XK_n,       spawn,          {.v = rss} },
+	{ MODKEY|ShiftMask,             XK_h,       spawn,          {.v = htop} },
+	{ MODKEY|ControlMask,           XK_h,       spawn,          {.v = bashtop} },
+	{ MODKEY|ShiftMask,             XK_y,       spawn,          {.v = youtube} },
 	{ MODKEY,                       XK_b,       togglebar,      {0} },
 	{ MODKEY,                       XK_j,       focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,       focusstack,     {.i = -1 } },
@@ -160,12 +166,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period,  focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,   tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,  tagmon,         {.i = +1 } },
-  { MODKEY,                       XK_minus,  setgaps,         {.i = -1 } },
-  { MODKEY,                       XK_equal,  setgaps,         {.i = +1 } },
-  { MODKEY|ShiftMask,             XK_equal,  setgaps,         {.i = 0  } },
+	{ MODKEY,                       XK_minus,  setgaps,         {.i = -1 } },
+	{ MODKEY,                       XK_equal,  setgaps,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_equal,  setgaps,         {.i = 0  } },
 	{ MODKEY|ShiftMask,             XK_q,       quit,           {0} },
-  TAGKEYS(                        XK_1,                      0)
-  TAGKEYS(                        XK_2,                      1)
+	TAGKEYS(                        XK_1,                      0)
+	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
 	TAGKEYS(                        XK_4,                      3)
 	TAGKEYS(                        XK_5,                      4)
