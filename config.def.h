@@ -20,7 +20,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Anonymous Pro:style=Regular:size=13", "Joypixels:style=Regular:size=13" };
+static const char *fonts[]          = { "Cascadia Code:style=SemiBold:size=13", "Noto Color Emoji:style=Regular:size=13" };
 static const char dmenufont[]       = "Anonymous Pro:style=Regular:size=13";
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
